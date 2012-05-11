@@ -19,6 +19,7 @@ A pitch can be only reservered once on a specific timeslot (timeslot = one hour)
 The app lists only all reservations from today and in the future
 
 CLOUDFOUNDRY details
+Service Name dbResCFDBS
 
 REST API details
 
