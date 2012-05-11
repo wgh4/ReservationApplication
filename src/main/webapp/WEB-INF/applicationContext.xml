@@ -37,7 +37,7 @@
 	</security:authentication-manager>
 
 	<beans profile="cloud">
-		<cloud:data-source id="dataSource" service-name="tododb" />
+		<cloud:data-source id="dataSource" service-name="dbResCFDBS" />
 	</beans>
 	<beans profile="default">
 		<jdbc:embedded-database type="H2" id="dataSource" />

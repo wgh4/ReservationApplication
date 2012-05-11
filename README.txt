@@ -17,3 +17,13 @@ The reservation date is a mandatory field.
 A pitch can be only reservered once on a specific timeslot (timeslot = one hour) - SQL CONSTRAINT on reservationdate and pitch
 
 The app lists only all reservations from today and in the future
+
+CLOUDFOUNDRY details
+
+REST API details
+
+// get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation
+// create: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X POST -d '{"comment": "buy milk"}' http://localhost:8080/reservationapp/rest/reservation
+// get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation/1
+// update: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X PUT -d '{"comment": "buy milk", "done": true}' http://localhost:8080/reservationapp/rest/reservation/1
+// delete: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X DELETE http://localhost:8080/reservationapp/rest/reservation/1
