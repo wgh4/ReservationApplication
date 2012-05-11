@@ -37,21 +37,22 @@ public class JdbcReservationDatabase {
 
 	public Reservation get(int iID) {
 		return jdbcTemplate.queryForObject(
-				"select id, comments, trainer, team,  pitch, submit_date, reservation_date from PITCH_RESERVATIONS where id=? and owner=?",
+				"select id, comments, trainer, team,  pitch, submit_date, reservation_date from PITCH_RESERVATIONS where id=? and trainer=?",
 				new ReservationMapper(), iID, getCurrentUser());
 	}
 
+	
 //Get a List of all the reservations of all users that are today or in the future	
 	public List<Reservation> getAll() {
 		return jdbcTemplate.query(
-				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date()",
+				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date",
 				new ReservationMapper());
 	}
 
 //Get a List of all the reservations of a specific users that are today or in the future
 	public List<Reservation> getUserReservations() {
 		return jdbcTemplate.query(
-				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date() and trainer=?",
+				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date and trainer=?",
 				new ReservationMapper(), getCurrentUser());
 	}
 

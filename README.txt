@@ -12,19 +12,22 @@ traineru10 / wghu102012
 traineru1 / wghu112012
 traineru12 / wghu122012
 
-The reservation date is a mandatory field.
+The reservation date is a mandatory field. (Validation test is done on the page)
 
-A pitch can be only reservered once on a specific timeslot (timeslot = one hour) - SQL CONSTRAINT on reservationdate and pitch
+A pitch can be only reserved once on a specific timeslot (timeslot = one hour) - SQL CONSTRAINT on reservationdate and pitch
 
-The app lists only all reservations from today and in the future
+A trainer can only cancel his/her own reservations using the cancel button. Cancel button only appears on own reservations.
 
+The app lists only all reservations from today and in the future (>= current_date)
+
+//**************************************************
 CLOUDFOUNDRY details
-Service Name dbResCFDBS
-
+Available on http://reservationapp.cloudfoundry.com
+Service Name :dbResCFDBS (POSTGRESQL Database)
+//**************************************************
 REST API details
 
-// get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation
-// create: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X POST -d '{"comment": "buy milk"}' http://localhost:8080/reservationapp/rest/reservation
-// get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation/1
-// update: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X PUT -d '{"comment": "buy milk", "done": true}' http://localhost:8080/reservationapp/rest/reservation/1
+// get   : curl -i --user traineru7:wghu72012 http://localhost:8080/reservationapp/rest/reservation
+// create: curl -i --user traineru7:wghu72012 -X POST -d '{"reservationdate": "06/01/2012 10:00","team": "u7", "pitch": "Main pitch"}' http://localhost:8080/reservationapp/rest/reservation
+// get   : curl -i --user traineru7:wghu72012  http://localhost:8080/reservationapp/rest/reservation/1
 // delete: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X DELETE http://localhost:8080/reservationapp/rest/reservation/1

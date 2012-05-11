@@ -26,57 +26,52 @@ public class ReservationRESTController {
 	@Autowired
 	private JdbcReservationDatabase dbResDBS;
 
+//GET ALL TESTED AND WORKING
+//SYNTAX: curl -i --user traineru7:wghu72012 http://localhost:8080/reservationapp/rest/reservation
+
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Reservation> listReservations() {
 		return dbResDBS.getAll();
 	}
 
+//GET SINGLE RESERVATION TESTED AND WORKING
+//SYNTAX: curl -i --user traineru7:wghu72012 http://localhost:8080/reservationapp/rest/reservation/1
+		
 	@RequestMapping(value = "/reservation/{reservationId}", method = RequestMethod.GET)
 	public @ResponseBody
-	Reservation objReservation(@PathVariable Integer iReservationID) {
-		return dbResDBS.get(iReservationID);
+	Reservation objReservation(@PathVariable Integer reservationId) {
+		return dbResDBS.get(reservationId);
 	}
 
+//CREATE SINGLE RESERVATION TESTED AND WORKING
+// create: curl -i --user traineru7:wghu72012 -X POST -d '{"reservationdate": "06/01/2012 10:00","team": "u7", "pitch": "Main pitch"}' http://localhost:8080/reservationapp/rest/reservation
+	
 	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createReservation(@RequestBody Reservation objReservation, HttpServletRequest request,
-			HttpServletResponse response) throws ParseException {
-		dbResDBS.save(objReservation);
-		response.addHeader("Location",
-				getLocationForChildResource(request, objReservation.getId()));
+			HttpServletResponse response) throws ParseException { dbResDBS.save(objReservation);
+			response.addHeader("Location", getLocationForChildResource(request, objReservation.getId()));
 	}
 
+//As per Igor's example	create getLocationForChildResource
 	private String getLocationForChildResource(HttpServletRequest request,
 			Integer childIdentifier) {
 		// get the current URL from the request
 		final StringBuffer url = request.getRequestURL();
-		// append the /xyz to the URL and make it a UriTemplate
+		// append the /reservationid to the URL and make it a UriTemplate
 		final UriTemplate template = new UriTemplate(url.append("/{childId}")
 				.toString());
 		return template.expand(childIdentifier).toASCIIString();
 	}
-
-	@RequestMapping(value = "/reservation/{reservationId}", method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateRegistration(@PathVariable Integer iReservationID, @RequestBody Reservation objReservation) {
-		Reservation current = dbResDBS.get(iReservationID);
-		current.setComments(objReservation.getComments());
-		current.setPitch(objReservation.getPitch());
-		current.setReservationdate(objReservation.getReservationdate());
-		current.setTeam(objReservation.getTeam());
-		dbResDBS.update(current);
-	}
+	
+//DELETION TESTED and WORKING
+//delete: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X DELETE http://localhost:8080/reservationapp/rest/reservation/1
 
 	@RequestMapping(value = "/reservation/{reservationId}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteTodo(@PathVariable Integer iReservationID) {
-		dbResDBS.delete(iReservationID);
+	public void deleteTodo(@PathVariable Integer reservationId) {
+		dbResDBS.delete(reservationId);
 	}
 }
 
-//get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation
-//create: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X POST -d '{"comment": "buy milk"}' http://localhost:8080/reservationapp/rest/reservation
-//get   : curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" http://localhost:8080/reservationapp/rest/reservation/1
-//update: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X PUT -d '{"comment": "buy milk", "done": true}' http://localhost:8080/reservationapp/rest/reservation/1
-//delete: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X DELETE http://localhost:8080/reservationapp/rest/reservation/1
