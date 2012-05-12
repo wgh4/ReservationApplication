@@ -14,7 +14,7 @@ traineru12 / wghu122012
 
 traineru8 / wghu82012 has some relevant reservation data in CloundFoundry (http://reservationapp.cloudfoundry.com)
 
-The reservation date is a mandatory field. (Validation test is done on the page)
+The reservation date is a mandatory field. (Validation test is done on the page). The web app lets you make bookings 30 days in advance (restricted in datepicker)
 
 A pitch can be only reserved once on a specific timeslot (timeslot = one hour) - SQL CONSTRAINT on reservationdate and pitch
 
