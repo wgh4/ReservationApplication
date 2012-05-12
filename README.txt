@@ -30,6 +30,6 @@ Service Name :dbResCFDBS (POSTGRESQL Database)
 REST API details
 
 // get   : curl -i --user traineru7:wghu72012 http://localhost:8080/reservationapp/rest/reservation
-// create: curl -i --user traineru7:wghu72012 -X POST -d '{"reservationdate": "06/01/2012 10:00","team": "u7", "pitch": "Main pitch"}' http://localhost:8080/reservationapp/rest/reservation
+// create: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X POST -d '{"comments":"Weekly Training","pitch":"Main pitch","team":"u7","reservationdate":"06/01/2012 10:00"}' http://localhost:8080/reservationapp/rest/reservation
 // get   : curl -i --user traineru7:wghu72012  http://localhost:8080/reservationapp/rest/reservation/1
 // delete: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X DELETE http://localhost:8080/reservationapp/rest/reservation/1

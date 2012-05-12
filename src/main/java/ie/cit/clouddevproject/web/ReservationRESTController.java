@@ -45,24 +45,27 @@ public class ReservationRESTController {
 	}
 
 //CREATE SINGLE RESERVATION TESTED AND WORKING
-// create: curl -i --user traineru7:wghu72012 -X POST -d '{"reservationdate": "06/01/2012 10:00","team": "u7", "pitch": "Main pitch"}' http://localhost:8080/reservationapp/rest/reservation
+// create: curl -i --user traineru7:wghu72012 -H "Content-Type: application/json" -X POST -d '{"comments":"Weekly Training","pitch":"Main pitch","team":"u7","reservationdate":"05/12/2012 10:00"}' http://localhost:8080/reservationapp/rest/reservation
 	
-	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
+	@RequestMapping(value = "reservation", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createReservation(@RequestBody Reservation objReservation, HttpServletRequest request,
-			HttpServletResponse response) throws ParseException { dbResDBS.save(objReservation);
-			response.addHeader("Location", getLocationForChildResource(request, objReservation.getId()));
+	public void createReservation(@RequestBody Reservation objReservation, HttpServletRequest httpRequest,
+			HttpServletResponse response) throws ParseException { 
+		dbResDBS.save(objReservation);
+		String url = getLocationReservation(httpRequest, objReservation.getId());
+		response.addHeader("Location", url );
 	}
 
-//As per Igor's example	create getLocationForChildResource
-	private String getLocationForChildResource(HttpServletRequest request,
-			Integer childIdentifier) {
+//As per Igor's example	create getLocationForReservation
+	private String getLocationReservation(HttpServletRequest httpRequest, int reservationID) {
+
 		// get the current URL from the request
-		final StringBuffer url = request.getRequestURL();
-		// append the /reservationid to the URL and make it a UriTemplate
-		final UriTemplate template = new UriTemplate(url.append("/{childId}")
-				.toString());
-		return template.expand(childIdentifier).toASCIIString();
+		 StringBuffer requestURL = httpRequest.getRequestURL();
+
+		// append the /{reservationid} to the URL and make it a UriTemplate
+		UriTemplate uriTemplate = new UriTemplate(requestURL
+				.append("/{reservationID}").toString());
+		return uriTemplate.expand(reservationID).toASCIIString();
 	}
 	
 //DELETION TESTED and WORKING

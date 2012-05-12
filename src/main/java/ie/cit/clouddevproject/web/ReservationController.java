@@ -33,6 +33,7 @@ public class ReservationController {
 		objReservation.setPitch(pitch);
 		objReservation.setTeam(team);
 		//Convert string from form to date object
+		System.out.print( reservationdate );
 		SimpleDateFormat formatter=new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		objReservation.setReservationdate(formatter.parse(reservationdate));
 
