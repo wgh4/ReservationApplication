@@ -12,6 +12,8 @@ traineru10 / wghu102012
 traineru1 / wghu112012
 traineru12 / wghu122012
 
+traineru8 / wghu82012 has some relevant reservation data in CloundFoundry (http://reservationapp.cloudfoundry.com)
+
 The reservation date is a mandatory field. (Validation test is done on the page)
 
 A pitch can be only reserved once on a specific timeslot (timeslot = one hour) - SQL CONSTRAINT on reservationdate and pitch

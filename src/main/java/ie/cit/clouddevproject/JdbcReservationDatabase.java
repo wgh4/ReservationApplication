@@ -45,14 +45,14 @@ public class JdbcReservationDatabase {
 //Get a List of all the reservations of all users that are today or in the future	
 	public List<Reservation> getAll() {
 		return jdbcTemplate.query(
-				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date",
+				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date order by reservation_date",
 				new ReservationMapper());
 	}
 
 //Get a List of all the reservations of a specific users that are today or in the future
 	public List<Reservation> getUserReservations() {
 		return jdbcTemplate.query(
-				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date and trainer=?",
+				"select id, comments, trainer, team, pitch, submit_date, reservation_date from PITCH_RESERVATIONS where reservation_date >= current_date and trainer=? order by reservation_date",
 				new ReservationMapper(), getCurrentUser());
 	}
 
